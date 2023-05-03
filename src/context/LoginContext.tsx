@@ -1,6 +1,6 @@
 import { Dispatch, ReactNode, SetStateAction, createContext, useState } from 'react';
 
-interface Auth {
+export interface Auth {
     access_Token: string,
     username: string,
     password: string,

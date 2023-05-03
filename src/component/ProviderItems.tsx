@@ -1,0 +1,80 @@
+
+import { Component } from "react";
+import ProviderItemCss from '../css/ProviderItemCss.module.css'
+import Item from "./Item";
+
+
+export interface Items {
+    id: string,
+    amount: number,
+    price: number,
+    spicalPrice: number,
+    title: string,
+    images: Image
+
+}
+
+interface Image {
+    images: string[]
+}
+
+
+
+class ProviderItem extends Component<{ item: Items[] }>{
+
+
+
+    render() {
+        const items = this.props.item;
+        return (
+            <div className={ProviderItemCss.container}>
+
+                {
+
+
+                    items.map(Item => {
+
+                        return (
+                            <>
+
+                                <div key={Item.id} className={ProviderItemCss.child_container}>
+                                    <div className={ProviderItemCss.img}>
+                                        <img  src={Item.images.images[0]} />
+                                    </div>
+
+                                    <div className={ProviderItemCss.childsecound_container}>
+                                        <h1>title: {Item.title}</h1>
+                                        <p>price: {Item.price}</p>
+                                        <p>amount: {Item.amount}</p>
+                                        <p>spicalPrice: {Item.spicalPrice}</p>
+                                        <button className={ProviderItemCss.edit_button}>Edit</button>
+                                    </div>
+                                </div>
+
+                            </>
+
+                        )
+                    })
+                }
+
+            </div>
+        )
+    }
+}
+
+export default ProviderItem;
+
+/*
+{ item: Items }
+
+Here, the prop name is item and the type is Items.
+
+You can't use the syntax <item:Items> because that's not valid syntax in JavaScript or TypeScript.
+ When defining a prop, you need to use the propsName: PropType syntax.
+
+ if i want do that like 
+ class ProviderItem extends Component<Items> {
+     i have to give like that <ProviderItem id="1" amount={2} price={2.5} spicalPrice={4} title="Test Item" />
+
+     or   <ProviderItem {...item} />
+*/
