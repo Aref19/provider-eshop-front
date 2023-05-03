@@ -2,34 +2,35 @@
 import { Component } from "react";
 import ProviderItemCss from '../css/ProviderItemCss.module.css'
 import Item from "./Item";
+import { UUID } from "crypto";
 
 
 export interface Items {
-    id: string,
+    id: UUID,
     amount: number,
     price: number,
     spicalPrice: number,
     title: string,
-    images: Image
+    image: Image[]
 
 }
 
 interface Image {
-    images: string[]
+    url: string
 }
 
 
 
-class ProviderItem extends Component<{ item: Items[] }>{
+class ProviderItem extends Component<{ item: Items[]}>{
 
-
+    
 
     render() {
         const items = this.props.item;
         return (
             <div className={ProviderItemCss.container}>
 
-                {
+                { items &&
 
 
                     items.map(Item => {
@@ -39,7 +40,7 @@ class ProviderItem extends Component<{ item: Items[] }>{
 
                                 <div key={Item.id} className={ProviderItemCss.child_container}>
                                     <div className={ProviderItemCss.img}>
-                                        <img  src={Item.images.images[0]} />
+                                        <img  src={Item.image[0].url} />
                                     </div>
 
                                     <div className={ProviderItemCss.childsecound_container}>

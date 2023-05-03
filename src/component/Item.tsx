@@ -1,68 +1,54 @@
-import { Component } from "react";
+import { Component, useState } from "react";
 import ProviderItem from "./ProviderItems";
 import { Items } from "./ProviderItems";
 import useAxioPrvate from "../hook/useAxioPrivate";
+import { useEffect } from "react";
+import { url } from "inspector";
+import { v4 as uuid } from 'uuid'
+import Process  from "./Procces";
 
-interface State {
-    data: number
-}
+const Item = () => {
+    const [dataItem, setData] = useState([])
+    const [load, setLoad] = useState(true)
+    const axio = useAxioPrvate();
+    useEffect(() => {
 
-const items: Items[] = [
-    { id: "", amount: 2, price: 2.5, spicalPrice: 4, title: "test2", images: { images: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZZbprhmd0sjLf12_KRSB9Jx2lvoO8Ih2yYw&usqp=CAU"] } }]
-const item = {
-    name: 'Item name',
-    description: 'Item description',
-    price: 9.99,
-    // any other properties of the item
-};
-
-class Item extends Component<{}, State> {
-
-    constructor(props: {}) {
-        super(props);
-        this.state = { data: 1 };
-    }
-
-    componentDidMount() {
-        const axio = useAxioPrvate();
         const url = "provider/items";
         const CallData = async () => {
             const respose = await axio.get(url, {
                 params: {
-                    page: 2,
+                    page: 0,
                     size: 10
                 }
+            }).then((data) => {
+                setLoad(false);
+                return data
             })
-            console.log(respose.data);
+            setData(respose?.data?.content)
+
 
         }
         CallData();
+    }, [])
 
-    }
+    return (
+        <>
+            {
+                load ? <Process /> : <ProviderItem item={dataItem} />
+            }
+        </>
 
-    componentWillUnmount() {
-        console.log("componentWillUnmount");
 
-    }
+    )
 
-    componentDidUpdate() {
-        console.log("componentDidUpdate");
-
-    }
-
-    add = () => {
-        this.setState((prevState) => ({ data: this.state.data + 1 }));
-    }
-
-    render() {
-        return (
-            <ProviderItem item={items} />
-        )
-    }
 }
 
 export default Item;
 
+
+function uuidv4() {
+    throw new Error("Function not implemented.");
+}
 /*
 { item: Items }
 
@@ -76,4 +62,8 @@ You can't use the syntax <item:Items> because that's not valid syntax in JavaScr
      i have to give like that <ProviderItem id="1" amount={2} price={2.5} spicalPrice={4} title="Test Item" />
 
      or   <ProviderItem {...item} />
+
+
+
+     // when fetch data the object should have the same property of fetced object json
 */
