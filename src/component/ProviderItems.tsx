@@ -4,7 +4,7 @@ import ProviderItemCss from '../css/ProviderItemCss.module.css'
 import Item from "./Item";
 import { UUID } from "crypto";
 import { useCustomNavigate } from "../hook/Navigate";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -23,15 +23,15 @@ interface Image {
 }
 interface Props {
     items: Items[];
-  }
+}
 
 
 const ProviderItem = ({ items }: Props) => {
-    const nav=   useCustomNavigate()
+    const nav = useNavigate()
 
-    const naviEdit = () => {
+    const naviEdit = (Item: Items) => {
 
-      nav("/edit")
+        nav("/edit", { state: { myProp: Item.id } })
     }
     return (
         <div className={ProviderItemCss.container}>
@@ -54,7 +54,7 @@ const ProviderItem = ({ items }: Props) => {
                                     <p>price: {Item.price}</p>
                                     <p>amount: {Item.amount}</p>
                                     <p>spicalPrice: {Item.spicalPrice}</p>
-                                    <button className={ProviderItemCss.edit_button} onClick={naviEdit}>Edit</button>
+                                    <button className={ProviderItemCss.edit_button} onClick={() => { naviEdit(Item) }}>Edit</button>
                                 </div>
                             </div>
 
