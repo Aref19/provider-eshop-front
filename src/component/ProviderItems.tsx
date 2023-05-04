@@ -3,6 +3,9 @@ import { Component } from "react";
 import ProviderItemCss from '../css/ProviderItemCss.module.css'
 import Item from "./Item";
 import { UUID } from "crypto";
+import { useCustomNavigate } from "../hook/Navigate";
+import { Link } from "react-router-dom";
+
 
 
 export interface Items {
@@ -18,49 +21,52 @@ export interface Items {
 interface Image {
     url: string
 }
+interface Props {
+    items: Items[];
+  }
 
 
+const ProviderItem = ({ items }: Props) => {
+    const nav=   useCustomNavigate()
 
-class ProviderItem extends Component<{ item: Items[]}>{
+    const naviEdit = () => {
 
-    
+      nav("/edit")
+    }
+    return (
+        <div className={ProviderItemCss.container}>
 
-    render() {
-        const items = this.props.item;
-        return (
-            <div className={ProviderItemCss.container}>
-
-                { items &&
+            {items &&
 
 
-                    items.map(Item => {
+                items.map(Item => {
 
-                        return (
-                            <>
+                    return (
+                        <>
 
-                                <div key={Item.id} className={ProviderItemCss.child_container}>
-                                    <div className={ProviderItemCss.img}>
-                                        <img  src={Item.image[0].url} />
-                                    </div>
-
-                                    <div className={ProviderItemCss.childsecound_container}>
-                                        <h1>title: {Item.title}</h1>
-                                        <p>price: {Item.price}</p>
-                                        <p>amount: {Item.amount}</p>
-                                        <p>spicalPrice: {Item.spicalPrice}</p>
-                                        <button className={ProviderItemCss.edit_button}>Edit</button>
-                                    </div>
+                            <div key={Item.id} className={ProviderItemCss.child_container}>
+                                <div className={ProviderItemCss.img}>
+                                    <img src={Item.image[0].url} />
                                 </div>
 
-                            </>
+                                <div className={ProviderItemCss.childsecound_container}>
+                                    <h1>title: {Item.title}</h1>
+                                    <p>price: {Item.price}</p>
+                                    <p>amount: {Item.amount}</p>
+                                    <p>spicalPrice: {Item.spicalPrice}</p>
+                                    <button className={ProviderItemCss.edit_button} onClick={naviEdit}>Edit</button>
+                                </div>
+                            </div>
 
-                        )
-                    })
-                }
+                        </>
 
-            </div>
-        )
-    }
+                    )
+                })
+            }
+
+        </div>
+    )
+
 }
 
 export default ProviderItem;

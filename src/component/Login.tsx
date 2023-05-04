@@ -6,8 +6,10 @@ import { useState } from 'react';
 import { useAuth } from '../hook/ContextHook';
 import { AuthInContext } from '../context/LoginContext';
 import { axiosPrivate } from '../api/Axio';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const navigate =useNavigate()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { setAuth } = useAuth() as AuthInContext;
@@ -46,7 +48,7 @@ const Login = () => {
                 const refresh_token = respose?.data?.refresh_token
                 setAuth({ access_Token: accessToken, username: email, password: password, refresh_token: refresh_token })
                 console.log("data : ", respose?.data?.refresh_token);
-
+                navigate("/item")
             } catch (err) {
                 console.log(err);
             }

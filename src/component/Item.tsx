@@ -34,7 +34,7 @@ const Item = () => {
     return (
         <>
             {
-                load ? <Process /> : <ProviderItem item={dataItem} />
+                load ? <Process /> : <ProviderItem items={dataItem} />
             }
         </>
 
@@ -46,9 +46,7 @@ const Item = () => {
 export default Item;
 
 
-function uuidv4() {
-    throw new Error("Function not implemented.");
-}
+
 /*
 { item: Items }
 
