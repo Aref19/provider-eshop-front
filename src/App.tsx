@@ -8,8 +8,8 @@ import Item from './component/Item';
 import { createRoot } from "react-dom/client";
 import { Outlet, Route } from 'react-router-dom';
 import { Routes, useNavigate } from 'react-router-dom';
-import { log } from 'console';
 import EditItem from './component/EditItem';
+import AddItem from './component/AddItem';
 
 const root = createRoot(document.getElementById("root") as Element);
 
@@ -34,6 +34,7 @@ const Map = () => {
             path="/" element={<Outlet />}>
             <Route path="item" element={<Item />} />
             <Route path="edit" element={<EditItem />} />
+            <Route path="additem" element={<AddItem />} />
           </Route>
         </Routes>
       </div >

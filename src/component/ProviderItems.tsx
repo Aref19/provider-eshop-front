@@ -28,6 +28,7 @@ interface Props {
 
 const ProviderItem = ({ items }: Props) => {
     const nav = useNavigate()
+    const nav1 = useNavigate()
 
     const naviEdit = (Item: Items) => {
 
@@ -64,7 +65,9 @@ const ProviderItem = ({ items }: Props) => {
                 })
             }
 
-        </div>
+            <button className={ProviderItemCss.addItemButton} onClick={() => { nav1("/additem") }}>Add Item</button>
+
+        </div >
     )
 
 }
